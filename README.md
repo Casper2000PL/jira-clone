@@ -35,6 +35,6 @@ The easiest way to deploy your Next.js app is to use the [Vercel Platform](https
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
 
-Source & Author
+## Source & Author
 
 This project is based on the tutorial by [Antonio Erdeljac](https://github.com/antonioerdeljac). You can watch the tutorial video on YouTube: [Build a Jira Clone With Nextjs, React, Tailwind, Hono.js](https://www.youtube.com/watch?v=Av9C7xlV0fA&list=WL&index=6).
