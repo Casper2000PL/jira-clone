@@ -1,4 +1,5 @@
 "use client";
+
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -18,6 +19,7 @@ import {
 import { FaGithub } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import Link from "next/link";
+import { LoaderCircle } from "lucide-react";
 
 export const SignInCard = () => {
   const { mutate, isPending } = useLogin();
@@ -76,8 +78,16 @@ export const SignInCard = () => {
               )}
             />
 
-            <Button disabled={isPending} size="lg" className="w-full">
-              Login
+            <Button
+              disabled={isPending}
+              size="lg"
+              className={`w-full ${isPending && "bg-blue-300"}`}
+            >
+              {isPending ? (
+                <LoaderCircle className="animate-spin !size-7" />
+              ) : (
+                "Login"
+              )}
             </Button>
           </form>
         </Form>
@@ -92,8 +102,14 @@ export const SignInCard = () => {
           size="lg"
           className="w-full"
         >
-          <FcGoogle className="mr-2 size-5" />
-          Login with Google
+          {isPending ? (
+            <LoaderCircle className="animate-spin !size-7" />
+          ) : (
+            <>
+              <FcGoogle className="mr-2 size-5" />
+              Continue with Google
+            </>
+          )}
         </Button>
         <Button
           disabled={isPending}
@@ -101,8 +117,14 @@ export const SignInCard = () => {
           size="lg"
           className="w-full"
         >
-          <FaGithub className="mr-2 size-5" />
-          Login with Github
+          {isPending ? (
+            <LoaderCircle className="animate-spin !size-7" />
+          ) : (
+            <>
+              <FaGithub className="mr-2 size-5" />
+              Continue with Github
+            </>
+          )}
         </Button>
       </CardContent>
       <div className="px-7">

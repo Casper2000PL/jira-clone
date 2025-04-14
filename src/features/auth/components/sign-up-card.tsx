@@ -1,3 +1,5 @@
+"use client";
+
 import { FcGoogle } from "react-icons/fc";
 import { FaGithub } from "react-icons/fa";
 
@@ -27,10 +29,10 @@ import {
 } from "@/components/ui/form";
 import { registerSchema } from "../schemas";
 import { useRegister } from "../api/use-register";
-import { json } from "stream/consumers";
+import { LoaderCircle } from "lucide-react";
 
 export const SignUpCard = () => {
-  const { mutate } = useRegister();
+  const { mutate, isPending } = useRegister();
 
   const form = useForm<z.infer<typeof registerSchema>>({
     resolver: zodResolver(registerSchema),
@@ -114,8 +116,16 @@ export const SignUpCard = () => {
                 </FormItem>
               )}
             />
-            <Button disabled={false} size="lg" className="w-full">
-              Sign Up
+            <Button
+              disabled={isPending}
+              size="lg"
+              className={`w-full ${isPending && "bg-blue-300"}`}
+            >
+              {isPending ? (
+                <LoaderCircle className="animate-spin size-7" />
+              ) : (
+                "Register"
+              )}
             </Button>
           </form>
         </Form>
@@ -125,22 +135,34 @@ export const SignUpCard = () => {
       </div>
       <CardContent className="flex p-7 flex-col gap-y-4">
         <Button
-          disabled={false}
+          disabled={isPending}
           variant="secondary"
           size="lg"
           className="w-full"
         >
-          <FcGoogle className="mr-2 size-5" />
-          Login with Google
+          {isPending ? (
+            <LoaderCircle className="animate-spin size-7" />
+          ) : (
+            <>
+              <FcGoogle className="mr-2 size-5" />
+              Continue with Google
+            </>
+          )}
         </Button>
         <Button
-          disabled={false}
+          disabled={isPending}
           variant="secondary"
           size="lg"
           className="w-full"
         >
-          <FaGithub className="mr-2 size-5" />
-          Login with Github
+          {isPending ? (
+            <LoaderCircle className="animate-spin size-7" />
+          ) : (
+            <>
+              <FaGithub className="mr-2 size-5" />
+              Continue with Github
+            </>
+          )}
         </Button>
       </CardContent>
       <CardContent className="flex p-7 items-center justify-center">
