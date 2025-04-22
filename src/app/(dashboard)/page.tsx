@@ -8,9 +8,5 @@ export default async function Home() {
 
   if (!user) redirect("/sign-in");
 
-  return (
-    <div className="flex">
-      <UserButton />
-    </div>
-  );
+  return <div className="flex">This is home page</div>;
 }
