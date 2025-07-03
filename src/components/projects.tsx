@@ -11,8 +11,6 @@ import React from "react";
 import { RiAddCircleFill } from "react-icons/ri";
 
 const Projects = () => {
-  const projectId = null; //TODO: Replace with actual project ID logic if needed
-
   const pathname = usePathname();
   const { open } = useCreateProjectModal();
   const workspaceId = useWorkspaceId();
