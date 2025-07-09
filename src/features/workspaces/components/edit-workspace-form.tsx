@@ -112,7 +112,6 @@ export const EditWorkspaceForm = ({
         },
       }
     );
-    console.log({ values });
   };
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {

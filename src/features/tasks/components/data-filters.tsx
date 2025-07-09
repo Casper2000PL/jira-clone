@@ -13,7 +13,7 @@ import {
 import { DatePicker } from "@/components/date-picker";
 import { Calendar, FolderIcon, ListCheckIcon, UserIcon } from "lucide-react";
 import { TaskStatus } from "../types";
-import { useTaskFilters } from "../api/use-task-filters";
+import { useTaskFilters } from "../hooks/use-task-filters";
 
 interface DataFiltersProps {
   hideProjectFilter?: boolean;

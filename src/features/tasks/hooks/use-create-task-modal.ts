@@ -1,4 +1,4 @@
-import { useQueryState, parseAsBoolean } from "nuqs";
+import { parseAsBoolean, useQueryState } from "nuqs";
 
 export const useCreateTaskModal = () => {
   const [isOpen, setIsOpen] = useQueryState(

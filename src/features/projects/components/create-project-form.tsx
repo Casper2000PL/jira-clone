@@ -66,7 +66,6 @@ export const CreateProjectForm = ({ onCancel }: CreateProjectFormProps) => {
         },
       }
     );
-    console.log({ values });
   };
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
