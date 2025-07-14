@@ -42,11 +42,15 @@ export const useGetTasks = ({
         },
       });
 
-      if (!response.ok) {
-        throw new Error("Failed to fetch tasks");
-      }
+      if (!response.ok) throw new Error("Failed to fetch tasks.");
 
       const { data } = await response.json();
+
+      // TODO - projectId is null when viewing all tasks in a workspace
+      console.log("workspaceId: ", workspaceId);
+      console.log("projectId: ", projectId);
+
+      console.log("Fetched tasks:", data);
 
       return data;
     },
