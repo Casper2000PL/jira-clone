@@ -39,7 +39,7 @@ export const EditProjectForm = ({
   initialValues,
 }: EditProjectFormProps) => {
   const router = useRouter();
-  const { mutate, isPending } = useUpdateProject();
+  const { mutate, isPending: isUpdatingProject } = useUpdateProject();
   const { mutate: deleteProject, isPending: isDeletingProject } =
     useDeleteProject();
 
@@ -82,14 +82,7 @@ export const EditProjectForm = ({
       image: values.image instanceof File ? values.image : "",
     };
 
-    mutate(
-      { form: finalValues, param: { projectId: initialValues.$id } },
-      {
-        onSuccess: () => {
-          form.reset();
-        },
-      }
-    );
+    mutate({ form: finalValues, param: { projectId: initialValues.$id } });
   };
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -99,6 +92,8 @@ export const EditProjectForm = ({
       form.setValue("image", file);
     }
   };
+
+  const isPending = isUpdatingProject || isDeletingProject;
 
   return (
     <div className="flex flex-col gap-y-4">
@@ -128,6 +123,7 @@ export const EditProjectForm = ({
             >
               <div className="flex flex-col gap-y-4">
                 <FormField
+                  disabled={isPending}
                   control={form.control}
                   name="name"
                   render={({ field }) => (
@@ -141,6 +137,7 @@ export const EditProjectForm = ({
                   )}
                 />
                 <FormField
+                  disabled={isPending}
                   control={form.control}
                   name="image"
                   render={({ field }) => (

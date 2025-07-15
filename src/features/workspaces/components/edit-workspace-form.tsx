@@ -101,17 +101,7 @@ export const EditWorkspaceForm = ({
       image: values.image instanceof File ? values.image : "",
     };
 
-    mutate(
-      { form: finalValues, param: { workspaceId: initialValues.$id } },
-      {
-        onSuccess: () => {
-          form.reset();
-        },
-        onError: (error) => {
-          console.error("Error creating workspace:", error);
-        },
-      }
-    );
+    mutate({ form: finalValues, param: { workspaceId: initialValues.$id } });
   };
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -124,7 +114,7 @@ export const EditWorkspaceForm = ({
 
   const fullInviteLink = `${window.location.origin}/workspaces/${initialValues.$id}/join/${initialValues.inviteCode}`;
 
-  const hanldeCopyInviteLink = () => {
+  const handleCopyInviteLink = () => {
     navigator.clipboard
       .writeText(fullInviteLink)
       .then(() => {
@@ -269,7 +259,7 @@ export const EditWorkspaceForm = ({
                   type="button"
                   variant="secondary"
                   className="size-12"
-                  onClick={hanldeCopyInviteLink}
+                  onClick={handleCopyInviteLink}
                 >
                   <CopyIcon className="size-5" />
                 </Button>

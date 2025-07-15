@@ -3,7 +3,6 @@ import { InferRequestType, InferResponseType } from "hono";
 import { toast } from "sonner";
 
 import { client } from "@/lib/rpc";
-import { useRouter } from "next/navigation";
 
 type ResponseType = InferResponseType<
   (typeof client.api.projects)[":projectId"]["$patch"],
@@ -14,7 +13,6 @@ type RequestType = InferRequestType<
 >;
 
 export const useUpdateProject = () => {
-  const router = useRouter();
   const queryClient = useQueryClient();
 
   const mutation = useMutation<ResponseType, Error, RequestType>({
@@ -24,18 +22,30 @@ export const useUpdateProject = () => {
         param,
       });
 
-      if (!response.ok) throw new Error("Failed to update project");
+      if (!response.ok) throw new Error("Failed to update project.");
 
       return await response.json();
     },
     onSuccess: ({ data }) => {
-      toast.success("Project updated successfully");
-      router.refresh();
-      queryClient.invalidateQueries({ queryKey: ["projects"] });
-      queryClient.invalidateQueries({ queryKey: ["projects", data.$id] });
+      toast.success("Project updated.");
+
+      queryClient.invalidateQueries({
+        queryKey: ["projects", data.workspaceId],
+        exact: true,
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["project", data.$id],
+        exact: true,
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["tasks", data.workspaceId, data.$id],
+        exact: false,
+      });
     },
-    onError: () => {
-      toast.error("Failed to create project");
+    onError: (error) => {
+      console.error("[UPDATE_PROJECT]: ", error);
+
+      toast.error("Failed to update project.");
     },
   });
 

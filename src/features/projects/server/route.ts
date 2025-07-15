@@ -8,6 +8,7 @@ import { z } from "zod";
 import { createProjectSchema, updateProjectSchema } from "../schemas";
 import { MemberRole } from "@/features/members/types";
 import { Project } from "../types";
+import { createAdminClient } from "@/lib/appwrite";
 
 const app = new Hono()
   .post(
@@ -96,6 +97,34 @@ const app = new Hono()
       return c.json({ data: projects });
     }
   )
+  .get("/:projectId", sessionMiddleware, async (c) => {
+    const user = c.get("user");
+    const databases = c.get("databases");
+    const { users } = await createAdminClient();
+    const { projectId } = c.req.param();
+
+    const project = await databases.getDocument<Project>(
+      DATABASE_ID,
+      PROJECTS_ID,
+      projectId
+    );
+
+    if (!project) {
+      return c.json({ error: "Project not found" }, 404);
+    }
+
+    const member = await getMember({
+      databases,
+      workspaceId: project.workspaceId,
+      userId: user.$id,
+    });
+
+    if (!member) {
+      return c.json({ error: "Unauthorized" }, 401);
+    }
+
+    return c.json({ data: project });
+  })
   .patch(
     "/:projectId",
     sessionMiddleware,
