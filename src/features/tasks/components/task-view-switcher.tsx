@@ -34,9 +34,6 @@ const TaskViewSwitcher = ({ hideProjectFilter }: TaskViewSwitcherProps) => {
   const workspaceId = useWorkspaceId();
   const projectId = useProjectId();
 
-  console.log("projectId in TaskViewSwitcher: ", projectId);
-  console.log("workspaceId in TaskViewSwitcher: ", workspaceId);
-
   const { data: tasks, isLoading: isLoadingTask } = useGetTasks({
     workspaceId,
     projectId: projectId ?? projectIdFilter,
