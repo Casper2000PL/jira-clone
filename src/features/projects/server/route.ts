@@ -103,7 +103,6 @@ const app = new Hono()
   .get("/:projectId", sessionMiddleware, async (c) => {
     const user = c.get("user");
     const databases = c.get("databases");
-    const { users } = await createAdminClient();
     const { projectId } = c.req.param();
 
     const project = await databases.getDocument<Project>(
