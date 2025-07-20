@@ -20,6 +20,7 @@ import { FaGithub } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import Link from "next/link";
 import { LoaderCircle } from "lucide-react";
+import { signUpWithGithub, signUpWithGoogle } from "@/lib/oauth";
 
 export const SignInCard = () => {
   const { mutate, isPending } = useLogin();
@@ -97,6 +98,7 @@ export const SignInCard = () => {
       </div>
       <CardContent className="p-7 flex flex-col gap-y-4">
         <Button
+          onClick={() => signUpWithGoogle()}
           disabled={isPending}
           variant="secondary"
           size="lg"
@@ -112,6 +114,7 @@ export const SignInCard = () => {
           )}
         </Button>
         <Button
+          onClick={() => signUpWithGithub()}
           disabled={isPending}
           variant="secondary"
           size="lg"
